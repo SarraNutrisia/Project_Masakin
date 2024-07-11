@@ -1,9 +1,15 @@
 import { Header } from '@/components';
 
-export default function Recipe() {
+const Recipe = () => {
+  const recipeTitle = 'Bulgogi';
+  const recipeImageUrl = '/assets/Bulgogi.jpg';
+
   return (
     <div>
-      <Header/>
+      <Header title={recipeTitle} imageUrl={recipeImageUrl} />
+      
     </div>
   );
-}
+};
+
+export default Recipe;
