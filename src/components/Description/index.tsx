@@ -7,7 +7,7 @@ interface DescriptionProps {
 
 const Description: React.FC<DescriptionProps> = ({ description }) => {
   return (
-    <div className="absolute left-1/2 transform -translate-x-1/2 bg-white mt-4"
+    <div className="absolute left-1/2 transform -translate-x-1/2 bg-white mt-2"
          style={{
            width: '324px',
            height: '144px',

@@ -1,4 +1,4 @@
-import { Header, Review, Description } from '@/components';
+import { Header, Review, Description, Buttonvideo } from '@/components';
 
 const Recipe = () => {
   const recipeTitle = 'Bulgogi';
@@ -20,6 +20,7 @@ const Recipe = () => {
         maxDifficultyLevel={maxDifficultyLevel}
       />
       <Description description={recipeDescription} />
+      <Buttonvideo videoUrl="https://www.youtube.com/watch?v=cmxaIPr_1kI" />
     </div>
   );
 };
