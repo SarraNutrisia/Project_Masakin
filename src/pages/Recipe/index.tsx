@@ -1,11 +1,14 @@
-import { Header, Review } from '@/components';
+import { Header, Review, Description } from '@/components';
 
 const Recipe = () => {
   const recipeTitle = 'Bulgogi';
   const recipeImageUrl = '/assets/Bulgogi.jpg';
   const rating = 5;
   const cookingTime = 50;
-  const difficultyLevel = 'Medium';
+  const difficultyLevel = 3;
+  const maxDifficultyLevel = 3;
+  const recipeDescription = "Bulgogi adalah daging sapi panggang klasik khas Korea yang lezat, cocok dinikmati saat makan siang ataupun makan malam.\n\ Dengan langkah-langkah yang sederhana, Bulgogi sangat mudah untuk dibuat.\n\ Hidangkan Bulgogi bersama nasi dan kimchi untuk sensasi makan yang benar-benar autentik.";
+
 
   return (
     <div>
@@ -14,7 +17,9 @@ const Recipe = () => {
         rating={rating}
         cookingTime={cookingTime}
         difficultyLevel={difficultyLevel}
+        maxDifficultyLevel={maxDifficultyLevel}
       />
+      <Description description={recipeDescription} />
     </div>
   );
 };

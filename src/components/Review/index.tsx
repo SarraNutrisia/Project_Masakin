@@ -1,46 +1,105 @@
-import { FaStar, FaTools } from 'react-icons/fa';
-import Image from 'next/image';
+import { useState } from 'react';
+import Image from 'next/image'; // Import Image dari Next.js
 
 interface ReviewProps {
   rating: number;
   cookingTime: number;
-  difficultyLevel: string;
+  difficultyLevel: number;
+  maxDifficultyLevel: number;
 }
 
-const Review: React.FC<ReviewProps> = ({ rating, cookingTime, difficultyLevel }) => {
-  const starsArray = Array.from({ length: rating }, (_, index) => index + 1);
+const Review: React.FC<ReviewProps> = ({ rating, cookingTime, difficultyLevel, maxDifficultyLevel }) => {
+  const [bookmarked, setBookmarked] = useState(false);
+  const difficultyArray = Array.from({ length: maxDifficultyLevel }, (_, index) => index < difficultyLevel);
+
+  const toggleBookmark = () => {
+    setBookmarked(!bookmarked);
+  };
 
   return (
-    <div className="flex items-center mt-4">
-      <div className="flex space-x-0 gap-0">
-        {/* Menampilkan bintang-bintang */}
-        {starsArray.map((star, index) => (
-          <FaStar
-            key={index}
-            color="#FFAD30"
-            className="w-4 h-4"
-            style={{
-              width: '13.94px',
-              height: '14px',
-              top: '1px',
-              left: '0.47px',
-              gap: '0px',
-              opacity: '0px',
-            }}
-          />
-        ))}
-      </div>
-      <span className="ml-1">{rating}/5</span>
+    <div className="flex flex-col items-center mt-2">
+      <div className="flex items-center space-x-4">
+        {/* Bintang-bintang */}
+        <div className="flex space-x-1">
+          {Array.from({ length: 5 }, (_, index) => (
+            <Image
+              key={index}
+              src="/assets/star.png"
+              width={14}
+              height={14}
+              alt="Star"
+              className={`w-4 h-4 ${index < rating ? 'text-yellow-400' : 'text-gray-300'}`}
+            />
+          ))}
+        </div>
 
-      <div className="flex items-center ml-4">
-        
-        <Image src="assets/timer-1.svg" width={22.67} height={22.67} alt="Cooking Time" className="w-4 h-4" />
-        <span className="ml-1">{cookingTime} menit</span>
-      </div>
+        {/* Timer */}
+        <div className="flex items-center">
+          <Image src="/assets/timer-1.svg" width={22.67} height={22.67} alt="Cooking Time" className="w-4 h-4" style={{ width: '22.67px', height: '22.67px', filter: 'grayscale(400%)' }}/>
+          <span className="ml-1 mr-6 text-gray-400">{cookingTime} menit</span>
+        </div>
 
-      <div className="flex items-center ml-4">
-        <FaTools color="#4ADE80" />
-        <span className="ml-1">{difficultyLevel}</span>
+        {/* Topi Koki */}
+        <div className="flex items-center">
+          {difficultyArray.map((isActive, index) =>
+            isActive ? (
+              <div key={index} className="mr-0.5">
+                <Image
+                  src="/assets/topikoki.png"
+                  width={18.98}
+                  height={17.79}
+                  alt="Topi Koki"
+                  className="w-4 h-4"
+                />
+              </div>
+            ) : null
+          )}
+        </div>
+
+        {/* Icon Bookmark atau Rectangle Icon */}
+        <button onClick={toggleBookmark} className="relative" style={{ width: '22.67px', height: '22.67px', borderRadius: '16px 0 0 0' }}>
+          {bookmarked ? (
+            <div className="relative" style={{ width: '22.67px', height: '22.67px', borderRadius: '16px 0 0 0' }}>
+              <Image
+                src="/assets/rectangle.png"
+                alt="Rectangle Icon"
+                width={22.67}
+                height={22.67}
+                className="w-full h-full"
+              />
+              {/* Huruf "i" Kecil */}
+              <div className="absolute inset-0 flex items-center justify-center">
+                <div
+                  style={{
+                    width: '6px',
+                    height: '13px',
+                    color: '#109F79', // Warna huruf "i"
+                    fontFamily: 'Inter',
+                    fontSize: '14px',
+                    fontWeight: 700,
+                    lineHeight: '16.94px',
+                    letterSpacing: '0.1px',
+                    textAlign: 'center',
+                    display: 'flex',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                  }}
+                >
+                  i
+                </div>
+              </div>
+            </div>
+          ) : (
+            <Image
+              src="/assets/bookmark.png"
+              alt="Bookmark Icon"
+              width={22.67}
+              height={22.67}
+              className="w-full h-full"
+              style={{ fill: '#097659' }} // Warna bookmark
+            />
+          )}
+        </button>
       </div>
     </div>
   );
